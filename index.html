@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<!-- saved from url=(0022)http://47.108.252.165/ -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <link rel="shortcut icon " type="images/x-icon" href="https://aur.one/images/launcher-icon-144x144.png">
+    <link rel="stylesheet" href="./你配不配吧_files/style1.css">
+    <script src="./你配不配吧_files/jquery.min.js.下载"></script>
+    <script src="./你配不配吧_files/jquery-ui.min.js.下载"></script>
+    <title>你配不配吧</title>
+</head><remove-web-limits-iqxin id="rwl-iqxin" class="rwl-exempt" style="position: fixed; top: 0px; left: 0px;"><qxinbutton type="qxinbutton" id="rwl-setbtn"> set </qxinbutton> <lalala style="cursor:move; font-size:12px;">限制解除</lalala> <input type="checkbox" name="" id="black_node"><style type="text/css">#rwl-iqxin{position:fixed;transform:translate(-95px,0);width:85px;height:25px;font-size:12px;font-weight: 500;font-family:Verdana, Arial, '宋体';color:#fff;background:#333;z-index:2147483647;margin: 0;opacity:0.05;transition:0.3s;overflow:hidden;user-select:none;text-align:center;white-space:nowrap;line-height:25px;padding:0 16px;border:1px solid #ccc;border-width:1px 1px 1px 0;border-bottom-right-radius:5px;box-sizing: content-box;}#rwl-iqxin input{margin: 0;padding: 0;vertical-align:middle;-webkit-appearance:checkbox;-moz-appearance:checkbox;position: static;clip: auto;opacity: 1;cursor: pointer;}#rwl-iqxin.rwl-active-iqxin{left: 0px;transform:translate(0,0);opacity: 0.9;height: 32px;line-height: 32px}#rwl-iqxin label{margin:0;padding:0;font-weight:500;}#rwl-iqxin #rwl-setbtn{margin: 0 4px 0 0;padding: 0 0 0 4px;border: none;border-radius: 2px;cursor: pointer;background: #fff;color: #000;} </style></remove-web-limits-iqxin>
+
+<body style="">
+    <section>
+        <!-- 背景颜色 -->
+        <div class="color"></div>
+        <div class="color"></div>
+        <div class="color"></div>
+        <div class="box">
+            <!-- 背景圆 -->
+            <div class="circle" style="--lix:0">
+                <li id="dowen">下载</li>
+            </div>
+            <div class="circle" style="--x:1"></div>
+            <div class="circle" style="--xli:2"></div>
+            <div class="circle" style="--x:3">
+                <li id="play">播放</li>
+                <li id="stopa" hidden="">暂停</li>
+            </div>
+            <div class="circle" style="--x:4"></div>
+            <div class="container">
+                <div class="form">
+                    <h2>微软语音</h2>
+                    <div class="select">
+                        讲述者:<select id="speecher" class="speech">
+                            <option value="zh-CN-XiaoxiaoNeural">晓晓</option>
+                            <option value="zh-CN-YunxiNeural">云希</option>
+                            <option value="zh-CN-XiaohanNeural">晓涵</option>
+                            <option value="zh-CN-XiaomoNeural">晓墨</option>
+                            <option value="zh-CN-XiaoxuanNeural">晓萱</option>
+                            <option value="zh-CN-YunyeNeural">云野</option>
+                            <option value="zh-CN-XiaoruiNeural">晓睿</option>
+                            <option value="zh-CN-YunyangNeural">云扬</option>
+                            <option value="zh-CN-XiaoyouNeural">
+                                晓悠 - 预览
+                            </option>
+                            <option value="zh-CN-XiaochenNeural">
+                                晓辰 - 预览
+                            </option>
+                            <option value="zh-CN-XiaoqiuNeural">
+                                晓秋 - 预览
+                            </option>
+                            <option value="zh-CN-XiaoshuangNeural">
+                                晓双 - 预览
+                            </option>
+                            <option value="zh-CN-XiaoyanNeural">
+                                晓颜 - 预览
+                            </option>
+                        </select>
+                        情 感:
+                        <select id="feel" class="feel"><option value="general">通常</option>
+                      <option value="customerservice">友好热情</option>
+                      <option value="narration">讲故事</option></select>
+                    </div>
+                    <div class="setting">
+                        <div style="margin: 5px 0 0 0;">
+                            语速
+                            <input style="margin: 5px" type="range" max="3" min="0" step="0.01" value="1" id="SpeechSpeed">
+                            <p id="speed" style="display: inline">x1</p>
+                        </div>
+                        <div style="margin: 5px 0 0 0;">
+                            音调
+                            <input style="margin: 5px" type="range" max="2" min="0" step="0.02" value="1" id="SpeechTone">
+                            <p id="tone" style="display: inline">1</p>
+                        </div>
+                    </div>
+                    <div class="txt">
+                        <textarea rows="6" cols="40" autofocus="" class="ssml" id="text">手机端要使用，请用谷歌内核的浏览器
+
+本站所有的语音生产全部在本地，合成时没有与服务器有任何连接(--不会保存任何用户数据--);
+
+使用本地js代码合成时，手机浏览器力挺证明自己是手机浏览器，电脑上可以执行的，它：“老子不会！！！”</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        //事件处理
+        $(function () {
+            //滑块--监听器
+
+            //滑块-语速
+            $("#speed").html("x" + "1");
+            var speed = function () {
+                var x = $("#SpeechSpeed").val();
+                $("#speed").html("x" + x);
+            };
+            $("#SpeechSpeed").on("input", speed);
+
+            //滑块-音调
+            $("#tone").html("1");
+            var tone = function () {
+                var y = $("#SpeechTone").val();
+                $("#tone").html(y);
+            };
+            $("#SpeechTone").on("input", tone);
+
+            //选择器-speecher
+            $("#speecher").change(function () {
+                var speecher_options = $("#speecher option:selected").val(); //获取选中的项的值
+
+                switch (speecher_options) {
+                    case "zh-CN-XiaoxiaoNeural":
+                        $("#feel").html(`<option value="general">通常</option>
+                      <option value="assistant">热情而轻松</option>
+                      <option value="chat">闲聊语气</option>
+                      <option value="customerservice">友好热情</option>
+                      <option value="newscast">正式(新闻)</option>
+                      <option value="affectionate">温暖亲切</option>
+                      <option value="angry">生气</option>
+                      <option value="calm">沉着冷静</option>
+                      <option value="cheerful">欢快</option>
+                      <option value="disgruntled">轻蔑(抱怨)</option>
+                      <option value="fearful">恐惧(紧张)</option>
+                      <option value="gentle">礼貌而愉快</option>
+                      <option value="lyrical">优美又感伤</option>
+                      <option value="sad">哭泣</option>
+                      <option value="serious">严肃(命令)</option>`);
+                        break;
+                    case "zh-CN-YunyangNeural":
+                        $("#feel").html(`<option value="general">通常</option>
+                      <option value="customerservice">友好热情</option>
+                      <option value="narration">讲故事</option>`);
+                        break;
+                    case "zh-CN-XiaohanNeural":
+                        $("#feel").html(`<option value="general">通常</option>
+                      <option value="affectionate">温暖亲切</option>
+                      <option value="angry">生气</option>
+                      <option value="calm">沉着冷静</option>
+                      <option value="cheerful">欢快</option>
+                      <option value="disgruntled">轻蔑(抱怨)</option>
+                      <option value="fearful">恐惧(紧张)</option>
+                      <option value="gentle">礼貌而愉快</option>
+                      <option value="embarrassed">犹豫、不确定</option>
+                      <option value="sad">哭泣</option>
+                      <option value="serious">严肃(命令)</option>`);
+                        break;
+                    case "zh-CN-XiaomoNeural":
+                        $("#feel").html(`<option value="general">通常</option>
+                      <option value="depressed">忧郁、沮丧</option>
+                      <option value="envy">羡慕</option>
+                      <option value="affectionate">温暖亲切</option>
+                      <option value="angry">生气</option>
+                      <option value="calm">沉着冷静</option>
+                      <option value="cheerful">欢快</option>
+                      <option value="disgruntled">轻蔑(抱怨)</option>
+                      <option value="fearful">恐惧(紧张)</option>
+                      <option value="gentle">礼貌而愉快</option>
+                      <option value="embarrassed">犹豫、不确定</option>
+                      <option value="sad">哭泣</option>
+                      <option value="serious">严肃(命令)</option>`);
+                        break;
+                    case "zh-CN-XiaoruiNeural":
+                        $("#feel").html(`<option value="general">通常</option>
+                      <option value="angry">生气</option>
+                      <option value="calm">沉着冷静</option>
+                      <option value="fearful">恐惧(紧张)</option>
+                      <option value="sad">哭泣</option>`);
+                        break;
+                    case "zh-CN-XiaoxuanNeural":
+                        $("#feel").html(`<option value="general">通常</option>
+                      <option value="depressed">忧郁、沮丧</option>
+                      <option value="gentle">礼貌而愉快</option>
+                      <option value="disgruntled">轻蔑(抱怨)</option>
+                      <option value="cheerful">欢快</option>
+                      <option value="serious">严肃(命令)</option>
+                      <option value="angry">生气</option>
+                      <option value="calm">沉着冷静</option>
+                      <option value="fearful">恐惧(紧张)</option>
+                      <option value="sad">哭泣</option>`);
+                        break;
+                    case "zh-CN-YunxiNeural":
+                        $("#feel").html(`<option value="general">通常</option>
+                      <option value="narration">讲故事</option>
+                      <option value="assistant">热情而轻松</option>
+                      <option value="chat">闲聊语气</option>
+                      <option value="embarrassed">犹豫、不确定</option>
+                      <option value="depressed">忧郁、沮丧</option>
+                      <option value="disgruntled">轻蔑(抱怨)</option>
+                      <option value="cheerful">欢快</option>
+                      <option value="serious">严肃(命令)</option>
+                      <option value="angry">生气</option>
+                      <option value="fearful">恐惧(紧张)</option>
+                      <option value="sad">哭泣</option>`);
+                        break;
+                    case "zh-CN-YunyeNeural":
+                        $("#feel").html(`<option value="general">通常</option>
+                      <option value="calm">沉着冷静</option>
+                      <option value="embarrassed">犹豫、不确定</option>
+                      <option value="disgruntled">轻蔑(抱怨)</option>
+                      <option value="cheerful">欢快</option>
+                      <option value="serious">严肃(命令)</option>
+                      <option value="angry">生气</option>
+                      <option value="fearful">恐惧(紧张)</option>
+                      <option value="sad">哭泣</option>`);
+                        break;
+
+                    default:
+                        $("#feel").html(`<option value="general">通常</option>`);
+                        break;
+                }
+            });
+            //选择器-feel
+            $("#feel").change(function () {
+                var feel_options = $("#feel option:selected").val(); //获取选中的项的值
+            });
+        });
+
+        $(function () {
+          token = "未完成";
+          $.get("/token.php?"+Date.parse(new Date), function (data, status) {
+            data = data.replace("XyZ", "");
+            token = data.toString();
+            if(token!=""){
+                alert("准备好了？\n点击下方的圆开始合成");
+            }
+          });
+        });
+    </script>
+    <script>
+        var stopa = document.getElementById("stopa"),
+            play = document.getElementById("play"),
+            dowen = document.getElementById("dowen"),
+            download = null,
+            player = null;
+        
+        stopa.hidden = true;
+
+        function getssml() {
+            var feel_options, feel_options1;
+            var x = (($("#SpeechSpeed").val() - 1) * 100).toFixed(0);
+            var y = (($("#SpeechTone").val() - 1) * 100).toFixed(0) / 2;
+            var speecher_options = $("#speecher option:selected").val();
+            if ($("#feel option:selected").val() == "general") {
+                feel_options = "";
+                feel_options1 = "";
+            } else {
+                feel_options =
+                    '<mstts:express-as style="' +
+                    $("#feel option:selected").val() +
+                    '" >';
+                feel_options1 = "</mstts:express-as>";
+            }
+            var ssml =
+                '<speak xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="http://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" version="1.0" xml:lang="en-US"><voice name="' +
+                speecher_options +
+                '">' +
+                feel_options +
+                '<prosody rate="' +
+                x +
+                '%" pitch="' +
+                y +
+                '%">' +
+                $("textarea[class=ssml]").val() +
+                "</prosody>" +
+                feel_options1 +
+                "</voice></speak>";
+            return ssml;
+        }
+
+        function Speak() {
+            var synthesizer,
+                audioConfig,
+                ssml = getssml();
+            (SpeechSDK = window.SpeechSDK),
+                (config = SpeechSDK.SpeechTranslationConfig.fromAuthorizationToken(
+                    token,
+                    "eastus"
+                ));
+            config.speechSynthesisOutputFormat = SpeechSDK.SpeechSynthesisOutputFormat.Audio24Khz160KBitRateMonoMp3;
+
+            player = new SpeechSDK.SpeakerAudioDestination();
+
+            player.onAudioEnd = function () {
+                play.hidden = false;
+                stopa.hidden = true;
+            };
+
+            audioConfig = SpeechSDK.AudioConfig.fromSpeakerOutput(player);
+
+            synthesizer = new SpeechSDK.SpeechSynthesizer(config, audioConfig);
+
+            if (download == "下载") {
+                if (player !== null) {
+                    player.pause();
+                    $("#dowen").html("下载ing");
+                }
+            }
+
+            synthesizer.synthesisCompleted = function () {
+                synthesizer.close();
+               // play.hidden = false;
+               // stopa.hidden = true;
+                synthesizer = null;
+            };
+
+            synthesizer.SynthesisCanceled = function (s, e) {
+                // var details;
+
+                 play.hidden = false;
+                 stopa.hidden = true;
+                // details = SpeechSDK.CancellationDetails.fromResult(e);
+                // if (details.reason === SpeechSDK.CancellationReason.Error) {
+                //     // status.innerText = localizedResources.srTryAgain;
+                // }
+            };
+
+            synthesizer.speakSsmlAsync(ssml, function (mp3) {
+                if (download === "下载") {
+                    download = null;
+                    var fond = Object.prototype.toString.call(mp3.audioData);
+                    // alert(fond);
+                    if (fond == "[object ArrayBuffer]") {
+                        var url = URL.createObjectURL(
+                            new Blob([mp3.audioData], {
+                                type: "arraybuffer"
+                            })
+                        );
+                        var element = document.createElement("a");
+                        element.setAttribute("href", url);
+                        element.setAttribute(
+                            "download",
+                            $("textarea[class=ssml]").val().substr(0, 6) + ".mp3"
+                        );
+                        element.style.display = "none";
+                        document.body.appendChild(element);
+                        element.click();
+                        document.body.removeChild(element);
+                        $("#dowen").html("下载完成");
+                        setTimeout(() => {
+                            $("#dowen").html("下载");
+                        },400);
+                    }
+                }
+            }, function (error) { });
+
+        }
+
+        stopa.onclick = function () {
+            play.hidden = false;
+            stopa.hidden = true;
+
+            if (player !== null) {
+                player.pause();
+            }
+
+            player = null;
+        };
+
+        play.onclick = function () {
+            stopa.hidden = false;
+            play.hidden = true;
+            if (token == "未完成") {
+                alert("服务器准备中,请等待3~4s");
+                play.hidden = false;
+                stopa.hidden = true;
+            } else {
+                Speak();
+            }
+        };
+
+        dowen.onclick = function () {
+            if (token == "未完成") {
+                alert("服务器准备中,请等待3~4s");
+            } else {
+                download = "下载";
+                Speak();
+            }
+        }
+
+    </script>
+    <script src="./你配不配吧_files/microsoft.cognitiveservices.speech.sdk.bundle.js.下载"></script>
+    <script type="text/javascript">
+        document.write(unescape("%3Cspan style='display:inline-block;width: 100%;text-align:center;position: absolute;bottom: 10px;' id='cnzz_stat_icon_1280793396'%3E%3C/span%3E%3Cscript src='https://v1.cnzz.com/z_stat.php%3Fid%3D1280793396%26online%3D1%26show%3Dline' type='text/javascript'%3E%3C/script%3E"));
+    </script><span style="display:inline-block;width: 100%;text-align:center;position: absolute;bottom: 10px;" id="cnzz_stat_icon_1280793396"></span><script src="./你配不配吧_files/z_stat.php" type="text/javascript"></script>
+
+
+</body></html>
